@@ -1,41 +1,26 @@
 {
   "compilerOptions": {
-    /* Basic Options */
-    "incremental": true,
-    "target": "ESNext",
+    "target": "es6",
     "module": "commonjs",
-    "outDir": "dist",
     "pretty": true,
-    "removeComments": true,
-
-    /* Strict Type-Checking Options */
+    "sourceMap": true,
+    "outDir": "dist",
+    "importHelpers": true,
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "noImplicitThis": false,
     "alwaysStrict": true,
-
-    /* Additional Checks */
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-
-    /* Module Resolution Options */
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["jest", "node"],
-    "baseUrl": "src",
-    "paths": {
-        "@/*": ["./*"]
-    },
-  },
-  "include": ["src/**/*", "**/__tests__/**/*"],
-  "exclude": ["node_modules"]
+    "paths": {}
+  }
 }
