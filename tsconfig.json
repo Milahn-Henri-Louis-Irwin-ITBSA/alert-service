@@ -21,6 +21,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "paths": {}
+    "paths": {
+      "@api/*": ["./api/*"],
+      "@libs/*": ["./libs/*"],
+      "@app/*": ["./app/*"]
+    }
   }
 }

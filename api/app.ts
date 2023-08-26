@@ -4,8 +4,8 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import logger from 'pino-http';
 import Container from 'typedi';
-import { ENV_CONFIG } from '../app/config';
-import { Logger } from '../libs/logger';
+import { ENV_CONFIG } from '@app/config';
+import { Logger } from '@libs/logger';
 import {
   useExpressServer,
   useContainer as routingContainer,

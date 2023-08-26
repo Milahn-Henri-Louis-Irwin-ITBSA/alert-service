@@ -7,7 +7,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsc & nodemon api/app.ts | pino-pretty -c -t -o",
-    "prod": "tsc"
+    "prod": "tsc & node dist/api/app.js | pino-pretty -c -t -o"
+  },
+  "_moduleAliases": {
+    "@api": "dist/api",
+    "@libs": "dist/libs",
+    "@app": "dist/app"
   },
   "dependencies": {
     "axios": "^1.4.0",
