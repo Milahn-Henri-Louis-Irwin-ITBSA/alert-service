@@ -1,7 +1,7 @@
 import { JsonController, Get, QueryParam } from 'routing-controllers';
 import { Service } from 'typedi';
-import { URL_INFO } from '../userApiInfo';
-import { Logger } from '../../../libs/logger';
+import { URL_INFO } from '../alertApiInfo';
+import { Logger } from '../../../libs/alertlog';
 import { userInfoSvc } from '../service/userInfoSvc';
 
 @JsonController(URL_INFO.contextPath + '/userInfo')

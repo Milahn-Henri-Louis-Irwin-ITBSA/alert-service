@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Logger } from '../../../libs/logger';
+import { Logger } from '../../../libs/alertlog';
 import { Service } from 'typedi';
-import { UserPosts, UserObject, UserPost } from '../model/iUserinfo';
+import { UserPosts, UserObject, UserPost } from '../model/alertsinfo';
 
 @Service()
 export class userInfoSvc {

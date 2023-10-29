@@ -1,6 +1,6 @@
 export const ENV_CONFIG = {
   app: {
-    port: 3001,
+    port: 3004,
     hostname: 'localhost',
     apiRoot: '/v1',
   },

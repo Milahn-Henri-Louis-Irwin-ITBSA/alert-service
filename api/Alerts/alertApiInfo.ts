@@ -1,4 +1,4 @@
-import { IApiInfo } from './model/iUserinfo';
+import { IApiInfo } from './model/alertsinfo';
 
 export const URL_INFO: IApiInfo = {
   contextPath: '/api',
