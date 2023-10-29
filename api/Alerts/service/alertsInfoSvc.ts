@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Logger } from '../../../libs/alertlog';
+import { alert } from '../../../libs/alertlog';
 import { Service } from 'typedi';
 import { AlertPosts, AlertObject, AlertPost } from '../model/alertsinfo';
 
@@ -7,14 +7,14 @@ import { AlertPosts, AlertObject, AlertPost } from '../model/alertsinfo';
 export class alertInfoSvc {
   constructor() {}
 
-  async userInfoExecuter(): Promise<Array<AlertObject>> {
+  async AlertInfoExecuter(): Promise<Array<AlertObject>> {
     try {
       const alertPostResponseList: AlertPosts = await axios.get(
         'https://gorest.co.in/public/v2/posts'
       );
       return Promise.resolve(alertPostResponseList.data);
     } catch (error) {
-      Logger.error(
+      alert.error(
         'Service: alertInfoExecuter',
         'errorInfo:' + JSON.stringify(error)
       );
@@ -22,14 +22,14 @@ export class alertInfoSvc {
     }
   }
 
-  async userInfoExecuterById(alertID?: any): Promise<AlertObject> {
+  async alertInfoExecuterById(alertID?: any): Promise<AlertObject> {
     try {
       const alertPostResponse: AlertPost = await axios.get(
         `https://gorest.co.in/public/v2/posts/${alertID}`
       );
       return Promise.resolve(alertPostResponse.data);
     } catch (error) {
-      Logger.error(
+      alert.error(
         'Service: alertInfoExecuterById',
         'errorInfo:' + JSON.stringify(error)
       );

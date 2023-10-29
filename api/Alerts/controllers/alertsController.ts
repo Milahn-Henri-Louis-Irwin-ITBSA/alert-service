@@ -1,43 +1,44 @@
 import { JsonController, Get, QueryParam } from 'routing-controllers';
 import { Service } from 'typedi';
 import { URL_INFO } from '../alertApiInfo';
-import { Logger } from '../../../libs/alertlog';
-import { userInfoSvc } from '../service/userInfoSvc';
+import { alert } from '../../../libs/alertlog';
+import { alertInfoSvc } from '../service/alertsInfoSvc';
 
-@JsonController(URL_INFO.contextPath + '/userInfo')
+@JsonController(URL_INFO.contextPath + '/AlertObject')
 @Service()
-export class UserInfoController {
-  constructor(public _userInfoSvc: userInfoSvc) {}
+export class AlerInfoController {
+  constructor(public _alertsInfosvc: alertInfoSvc) {}
 
-  @Get('/getUserInfo')
-  public async getUserInfo(): Promise<any> {
+  @Get('/getAlertInfo')
+  public async getAlertInfo(): Promise<any> {
     try {
-      const resp = await this._userInfoSvc.userInfoExecuter();
-      Logger.info(
-        'Controller: getUserInfo',
+      const resp = await this._alertsInfosvc.AlertInfoExecuter(); // Use _alertsInfosvc here
+      alert.info(
+        'Controller: getAlertInfo',
         'response:' + JSON.stringify(resp)
       );
       return Promise.resolve(resp);
     } catch (error) {
-      Logger.error(
-        'Controller: getUserInfo',
+      alert.error(
+        'Controller: getAlertInfo',
         'errorInfo:' + JSON.stringify(error)
       );
       return Promise.reject(error);
     }
   }
+  
 
   @Get('/getUserInfoById')
   public async getUserInfoById(@QueryParam('id') userId: number): Promise<any> {
     try {
-      const resp = await this._userInfoSvc.userInfoExecuterById(userId);
-      Logger.info(
+      const resp = await this._alertsInfosvc.alertInfoExecuterById(alert);
+      alert.info(
         'Controller: getUserInfoById',
         'response:' + JSON.stringify(resp)
       );
       return Promise.resolve(resp);
     } catch (error) {
-      Logger.error(
+      alert.error(
         'Controller: getUserInfoById',
         'errorInfo:' + JSON.stringify(error)
       );

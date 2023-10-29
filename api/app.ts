@@ -2,11 +2,12 @@ import 'reflect-metadata';
 import 'module-alias/register';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import { rateLimit } from 'express-rate-limit';
 import Container from 'typedi';
 import { ENV_CONFIG } from '../app/config';
-import { Logger } from '../libs/alertlog';
-import admin from 'firebase-admin';
+import { alert } from '../libs/alertlog';
 import { config } from 'dotenv';
+import admin, { credential } from 'firebase-admin';
 import {
   useExpressServer,
   useContainer as routingContainer,
@@ -15,6 +16,13 @@ import * as http from 'http';
 
 const baseDir = __dirname;
 const expressApp = express();
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  message: 'Too many requests from this IP, please try again after 5 minutes',
+  limit: 10,
+  standardHeaders: false,
+  legacyHeaders: true,
+});
 
 // Handling the DependencyInjection across the entire application
 routingContainer(Container);
@@ -26,20 +34,19 @@ useExpressServer(expressApp, {
   controllers: [baseDir + `/**/controllers/*{.js,.ts}`],
 });
 
-// initialize firebase
-
 config();
 
 admin.initializeApp({
   credential: admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS),
 });
-
+console.log(credential);
 expressApp.use(bodyParser.urlencoded({ extended: false }));
 expressApp.use(bodyParser.json());
+expressApp.use(limiter);
 
 const server = http.createServer(expressApp);
 server.listen(ENV_CONFIG.app.port, () => {
-  Logger.info(
+  alert.info(
     'Server',
     'Application running on',
     `${ENV_CONFIG.app.hostname}:${ENV_CONFIG.app.port}`
@@ -48,5 +55,5 @@ server.listen(ENV_CONFIG.app.port, () => {
 
 // Handling the unHandledRejection errors
 process.on('unhandledRejection', (error, promise) => {
-  Logger.error('Server', 'unhandledRejectionError :', `${error}`);
+  alert.error('Server', 'unhandledRejectionError :', `${error}`);
 });
