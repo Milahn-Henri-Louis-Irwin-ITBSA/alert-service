@@ -12,7 +12,7 @@ export class AlerInfoController {
   @Get('/getAlertInfo')
   public async getAlertInfo(): Promise<any> {
     try {
-      const resp = await this._alertsInfosvc.AlertInfoExecuter(); // Use _alertsInfosvc here
+      const resp = await this._alertsInfosvc.AlertInfoExecuter();
       alert.info(
         'Controller: getAlertInfo',
         'response:' + JSON.stringify(resp)
