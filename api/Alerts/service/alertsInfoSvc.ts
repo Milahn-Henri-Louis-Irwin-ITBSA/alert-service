@@ -1,36 +1,36 @@
 import axios from 'axios';
 import { Logger } from '../../../libs/alertlog';
 import { Service } from 'typedi';
-import { UserPosts, UserObject, UserPost } from '../model/alertsinfo';
+import { AlertPosts, AlertObject, AlertPost } from '../model/alertsinfo';
 
 @Service()
-export class userInfoSvc {
+export class alertInfoSvc {
   constructor() {}
 
-  async userInfoExecuter(): Promise<Array<UserObject>> {
+  async userInfoExecuter(): Promise<Array<AlertObject>> {
     try {
-      const userPostResponseList: UserPosts = await axios.get(
+      const alertPostResponseList: AlertPosts = await axios.get(
         'https://gorest.co.in/public/v2/posts'
       );
-      return Promise.resolve(userPostResponseList.data);
+      return Promise.resolve(alertPostResponseList.data);
     } catch (error) {
       Logger.error(
-        'Service: userInfoExecuter',
+        'Service: alertInfoExecuter',
         'errorInfo:' + JSON.stringify(error)
       );
       return Promise.reject(error);
     }
   }
 
-  async userInfoExecuterById(userId?: any): Promise<UserObject> {
+  async userInfoExecuterById(alertID?: any): Promise<AlertObject> {
     try {
-      const userPostResponse: UserPost = await axios.get(
-        `https://gorest.co.in/public/v2/posts/${userId}`
+      const alertPostResponse: AlertPost = await axios.get(
+        `https://gorest.co.in/public/v2/posts/${alertID}`
       );
-      return Promise.resolve(userPostResponse.data);
+      return Promise.resolve(alertPostResponse.data);
     } catch (error) {
       Logger.error(
-        'Service: userInfoExecuterById',
+        'Service: alertInfoExecuterById',
         'errorInfo:' + JSON.stringify(error)
       );
       return Promise.reject(error);

@@ -2,10 +2,11 @@ import 'reflect-metadata';
 import 'module-alias/register';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import logger from 'pino-http';
 import Container from 'typedi';
-import { ENV_CONFIG } from '@app/config';
-import { Logger } from '@libs/alertlog';
+import { ENV_CONFIG } from '../app/config';
+import { Logger } from '../libs/alertlog';
+import admin from 'firebase-admin';
+import { config } from 'dotenv';
 import {
   useExpressServer,
   useContainer as routingContainer,
@@ -25,12 +26,16 @@ useExpressServer(expressApp, {
   controllers: [baseDir + `/**/controllers/*{.js,.ts}`],
 });
 
+// initialize firebase
+
+config();
+
+admin.initializeApp({
+  credential: admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS),
+});
+
 expressApp.use(bodyParser.urlencoded({ extended: false }));
 expressApp.use(bodyParser.json());
-expressApp.use(logger());
-expressApp.get('/', (req, res) => {
-  res.status(200).send({ message: 'ok' });
-});
 
 const server = http.createServer(expressApp);
 server.listen(ENV_CONFIG.app.port, () => {
