@@ -1,4 +1,4 @@
-export class alert {
+export default class Logger {
   public static getTimeStamp(): string {
     return new Date().toISOString();
   }

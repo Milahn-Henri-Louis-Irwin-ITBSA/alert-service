@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsc & nodemon api/app.ts | pino-pretty -c -t -o",
-    "prod": "tsc & node dist/api/app.js | pino-pretty -c -t -o"
+    "prod": "tsc & node dist/api/app.js | pino-pretty -c -t -o",
+    "build": "rm -r dist && tsc"
   },
   "_moduleAliases": {
     "@api": "dist/api",
