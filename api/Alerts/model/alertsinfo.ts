@@ -2,17 +2,17 @@ export interface IApiInfo {
   contextPath: string;
 }
 
-export interface UserPosts {
-  data?: Array<UserObject>;
+export interface AlertPosts {
+  data?: Array<AlertObject>;
 }
 
-export interface UserPost {
-  data?: UserObject;
+export interface AlertPost {
+  data?: AlertObject;
 }
 
-export interface UserObject {
-  id?: number;
-  user_id?: number;
-  title?: string;
-  body?: string;
+export interface AlertObject {
+  alertID?: number;
+  event?: string;
+  location?: string;
+  time?: string;
 }
