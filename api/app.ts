@@ -13,9 +13,19 @@ import {
   useContainer as routingContainer,
 } from 'routing-controllers';
 import * as http from 'http';
+import cors from 'cors';
 
 const baseDir = __dirname;
 const expressApp = express();
+expressApp.use(
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    maxAge: 86400,
+  })
+);
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
   message: 'Too many requests from this IP, please try again after 5 minutes',
